@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartão de Amor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: carta de papel claro centralizada sobre fundo vinho, corações subindo ao fundo. */
+:root {
+  --vinho-900: #2a0610;
+  --vinho-700: #5a0f22;
+  --vermelho: #c1121f;
+  --rosa: #f4c7cf;
+  --papel: #fbf1ee;
+  --tinta: #3a0d17;
+  --f-display: "Great Vibes", "Snell Roundhand", cursive;
+  --f-corpo: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --f-ui: "Josefin Sans", system-ui, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  min-height: 100%;
+  background:
+    radial-gradient(ellipse at 50% -10%, #8a1830 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 110%, #7a0b1c 0%, transparent 50%),
+    var(--vinho-900);
+  background-attachment: fixed;
+  color: var(--tinta);
+  font-family: var(--f-corpo);
+  padding: 32px 16px 64px;
+  overflow-x: hidden;
+}
+
+/* Corações de fundo */
+#coracoes { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.coracao {
+  position: absolute; bottom: -60px; left: var(--x);
+  width: var(--s); height: var(--s);
+  color: var(--c); opacity: 0;
+  animation: subir var(--d) linear var(--atraso) infinite;
+}
+.coracao svg { width: 100%; height: 100%; display: block; fill: currentColor; }
+@keyframes subir {
+  0%   { transform: translate(0, 0) rotate(-8deg); opacity: 0; }
+  10%  { opacity: var(--o); }
+  50%  { transform: translate(var(--balanco), -55vh) rotate(8deg); }
+  90%  { opacity: var(--o); }
+  100% { transform: translate(0, -115vh) rotate(-8deg); opacity: 0; }
+}
+
+main {
+  position: relative; z-index: 1;
+  max-width: 640px; margin: 0 auto;
+  background: var(--papel);
+  border-radius: 6px;
+  padding: 40px 28px 36px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.35) inset, 0 0 0 10px var(--papel), 0 0 0 11px rgba(193,18,31,.45), 0 30px 70px rgba(0,0,0,.55);
+  animation: entrar .9s ease-out both;
+}
+@keyframes entrar { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+.cabecalho { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.head h3 {
+  margin: 0; font-family: var(--f-ui); font-weight: 600; font-size: .8rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--vermelho);
+}
+.subhead h1 {
+  margin: 0; font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(3.4rem, 15vw, 5.2rem); line-height: 1.1; color: var(--vinho-700);
+  text-wrap: balance;
+}
+.selo { width: 44px; height: 44px; color: var(--vermelho); margin-top: 4px; animation: pulsar 1.6s ease-in-out infinite; filter: drop-shadow(0 3px 6px rgba(193,18,31,.35)); }
+.selo svg { width: 100%; height: 100%; fill: currentColor; display: block; }
+@keyframes pulsar { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.18); } 28% { transform: scale(1); } 42% { transform: scale(1.12); } 70% { transform: scale(1); } }
+
+figure { margin: 28px 0 0; }
+.moldura {
+  position: relative; border-radius: 4px; padding: 10px; background: #fff;
+  box-shadow: 0 10px 30px rgba(90,15,34,.28); transform: rotate(-1.2deg);
+}
+.moldura img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 40%; border-radius: 2px; }
+.moldura::after {
+  content: ""; position: absolute; inset: 10px; border-radius: 2px; pointer-events: none;
+  background: linear-gradient(180deg, rgba(193,18,31,0) 55%, rgba(90,15,34,.32) 100%);
+}
+
+.carta { margin-top: 32px; }
+.carta p {
+  margin: 0; font-size: clamp(1.22rem, 4.6vw, 1.45rem); line-height: 1.65; font-weight: 500;
+  max-width: 58ch; margin-inline: auto; text-wrap: pretty; color: var(--tinta);
+}
+.carta p::first-letter {
+  font-family: var(--f-display); font-size: 3.2em; line-height: .8; float: left; padding: 6px 8px 0 0; color: var(--vermelho);
+}
+.assinatura { margin-top: 20px; text-align: right; font-family: var(--f-display); font-size: 2rem; color: var(--vinho-700); max-width: 58ch; margin-inline: auto; }
+
+.acao { margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+button {
+  font-family: var(--f-ui); font-weight: 600; font-size: 1rem; letter-spacing: .04em;
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 52px; padding: 14px 28px; width: 100%; max-width: 420px;
+  color: #fff; background: linear-gradient(180deg, var(--vermelho), #8e0c18);
+  border: 0; border-radius: 999px; cursor: pointer;
+  box-shadow: 0 8px 20px rgba(142,12,24,.4);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+button:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(142,12,24,.5); }
+button:active { transform: translateY(0); }
+button:focus-visible { outline: 3px solid var(--vinho-700); outline-offset: 3px; }
+.eq { display: none; align-items: flex-end; gap: 3px; height: 18px; }
+.eq i { width: 3px; background: #fff; border-radius: 2px; height: 100%; transform-origin: bottom; animation: barra 0.9s ease-in-out infinite; }
+.eq i:nth-child(2) { animation-delay: .2s; } .eq i:nth-child(3) { animation-delay: .45s; }
+@keyframes barra { 0%, 100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
+button[aria-pressed="true"] .eq { display: inline-flex; }
+.legenda { margin: 0; min-height: 1.2em; font-family: var(--f-ui); font-size: .85rem; color: var(--vinho-700); text-align: center; }
+
+.explosao { position: fixed; z-index: 5; pointer-events: none; width: 22px; height: 22px; color: var(--vermelho); animation: estourar 1.4s ease-out forwards; }
+.explosao svg { width: 100%; height: 100%; fill: currentColor; display: block; }
+@keyframes estourar { 0% { transform: translate(0,0) scale(.4); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) scale(1.1); opacity: 0; } }
+
+@media (max-width: 420px) { main { padding: 32px 18px 28px; } }
+@media (prefers-reduced-motion: reduce) {
+  .coracao, .selo, main, .eq i { animation: none; }
+  .coracao { opacity: .25; bottom: auto; top: calc(var(--x) * 0.9); }
+  .moldura { transform: none; }
+  button { transition: none; }
+}
+</style>
+</head>
+<body>
+<div id="coracoes" aria-hidden="true"></div>
+
+<main>
+  <header class="cabecalho">
+    <div class="head"><h3>Para minha pretinha</h3></div>
+    <div class="subhead"><h1>Pretinha</h1></div>
+    <div class="selo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+  </header>
+
+  <figure>
+    <div class="moldura">
+      <img src="foto.jpg" width="1600" height="900" alt="Nós dois juntos, rosto colado, sorrindo" fetchpriority="high">
+    </div>
+  </figure>
+
+  <section class="carta" aria-label="Carta de amor">
+    <p>Pretinha, eu te amo muito, você é linda, maravilhosa, e cada detalhe seu me encanta. Gosto tanto de você que, toda vez que te vejo, fico tão feliz. Além de mim, meu amigão lá embaixo também fica😈 é uma prova de que te amo: ele sobe só pra tu. Seus olhos me encantam, sua voz, seu cabelo, ops rs, seus cabelos me encantam, ksks. Te amo nega, cada pedacinho seu é maravilhosamente perfeito. Te amo, Maryellen Gomes ❤️</p>
+    <div class="assinatura" aria-hidden="true">com amor</div>
+  </section>
+
+  <div class="acao">
+    <button id="btn-musica" type="button" aria-pressed="false" aria-controls="musica">
+      <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span id="rotulo">O que passa na mente ao te ver</span>
+    </button>
+    <p class="legenda" id="status" role="status" aria-live="polite"></p>
+    <audio id="musica" src="musica.mp3" preload="none" loop></audio>
+  </div>
+</main>
+
+<script>
+(function () {
+  var HEART = '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+  var cores = ['#e0314b', '#c1121f', '#ff6b81', '#8e0c18', '#f4a6b3'];
+  var camada = document.getElementById('coracoes');
+  var rand = function (a, b) { return a + Math.random() * (b - a); };
+
+  for (var i = 0; i < 18; i++) {
+    var el = document.createElement('span');
+    el.className = 'coracao';
+    el.style.setProperty('--x', rand(2, 96).toFixed(1) + '%');
+    el.style.setProperty('--s', rand(14, 34).toFixed(0) + 'px');
+    el.style.setProperty('--d', rand(11, 20).toFixed(1) + 's');
+    el.style.setProperty('--atraso', (-rand(0, 18)).toFixed(1) + 's');
+    el.style.setProperty('--balanco', rand(-40, 40).toFixed(0) + 'px');
+    el.style.setProperty('--o', rand(.25, .55).toFixed(2));
+    el.style.setProperty('--c', cores[i % cores.length]);
+    el.innerHTML = HEART;
+    camada.appendChild(el);
+  }
+
+  var audio = document.getElementById('musica');
+  var btn = document.getElementById('btn-musica');
+  var rotulo = document.getElementById('rotulo');
+  var status = document.getElementById('status');
+  var reduzir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function estourar() {
+    if (reduzir) return;
+    var r = btn.getBoundingClientRect();
+    for (var i = 0; i < 14; i++) {
+      var h = document.createElement('span');
+      h.className = 'explosao';
+      h.style.left = (r.left + r.width / 2) + 'px';
+      h.style.top = (r.top + r.height / 2) + 'px';
+      h.style.color = cores[i % cores.length];
+      h.style.setProperty('--dx', rand(-140, 140).toFixed(0) + 'px');
+      h.style.setProperty('--dy', rand(-200, -60).toFixed(0) + 'px');
+      h.innerHTML = HEART;
+      document.body.appendChild(h);
+      setTimeout(function (n) { return function () { n.remove(); }; }(h), 1500);
+    }
+  }
+
+  function atualizar(tocando) {
+    btn.setAttribute('aria-pressed', tocando ? 'true' : 'false');
+    rotulo.textContent = tocando ? 'Pausar a música' : 'O que passa na mente ao te ver';
+    status.textContent = tocando ? 'Tocando: São Gonçalo, Seu Jorge' : '';
+  }
+
+  btn.addEventListener('click', function () {
+    if (audio.paused) {
+      var p = audio.play();
+      atualizar(true);
+      estourar();
+      if (p && p.catch) p.catch(function () {
+        atualizar(false);
+        status.textContent = 'Não foi possível tocar a música. Toque no botão de novo.';
+      });
+    } else {
+      audio.pause();
+      atualizar(false);
+    }
+  });
+})();
+</script>
+</body>
+</html>
